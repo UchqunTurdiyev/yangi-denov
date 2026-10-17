@@ -69,7 +69,7 @@ export async function POST(req: Request) {
     );
   } catch (e) {
     console.error("[lead] telegram", e);
-    return NextResponse.json({ ok: false, error: "Yuborilmadi. Iltimos, qo'ng'iroq qiling." }, { status: 502 });
+    return NextResponse.json({ ok: false, error: "Yuborilmadi. Iltimos, Telegram'da yozing: @yangi_denov_admin" }, { status: 502 });
   }
 
   return NextResponse.json({ ok: true });

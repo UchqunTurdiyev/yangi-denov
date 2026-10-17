@@ -43,12 +43,12 @@ export function Header() {
             </a>
           ))}
         </nav>
-        <a className="header__phone" href={site.phoneHref}>
+        <a className="header__phone" href={site.tg} target="_blank" rel="noreferrer">
           <span className="pulse-dot" />
-          {site.phone}
+          {site.tgHandle}
         </a>
         <LeadButton className="btn btn--green btn--sm header__cta" source="Header">
-          Ariza qoldirish
+          Batafsil ma'lumot uchun
         </LeadButton>
         <button className="burger" aria-label="Menyu" aria-expanded={open} onClick={() => setOpen(!open)}>
           <span />
@@ -76,8 +76,9 @@ export function Header() {
                 {n.label}
               </motion.a>
             ))}
-            <a className="btn btn--green btn--block" href={site.phoneHref}>
-              {site.phone}
+            <a className="btn btn--green btn--block" href={site.tg} target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1 1.4 11.6c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg>
+              Telegram'da yozish
             </a>
           </motion.nav>
         )}
@@ -148,11 +149,9 @@ export function Hero() {
                 Xonadonlarni 3D ko'rish
               </a>
             </Magnetic>
-            <a href={site.phoneHref} className="btn btn--glass btn--lg">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" />
-              </svg>
-              Qo'ng'iroq
+            <a href={site.tg} target="_blank" rel="noreferrer" className="btn btn--glass btn--lg">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1 1.4 11.6c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg>
+              Telegram'da yozish
             </a>
           </motion.div>
         </motion.div>
@@ -353,11 +352,12 @@ export function MobileBar() {
     <AnimatePresence>
       {show && (
         <motion.div className="mbar" initial={{ y: 100 }} animate={{ y: 0 }} exit={{ y: 100 }} transition={{ type: "spring", stiffness: 300, damping: 30 }}>
-          <a className="btn btn--glass-dark" href={site.phoneHref}>
-            Qo'ng'iroq
+          <a className="btn btn--glass-dark" href={site.tg} target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1 1.4 11.6c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg>
+            Telegram
           </a>
           <LeadButton className="btn btn--gold" source="Mobil panel">
-            Ariza qoldirish
+            Batafsil ma'lumot uchun
           </LeadButton>
         </motion.div>
       )}

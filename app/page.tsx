@@ -462,9 +462,10 @@ export default function Page() {
                 </h2>
               </Reveal>
               <Reveal delay={0.1}>
-                <p className="lead-text">Javob topmadingizmi? Qo'ng'iroq qiling — batafsil tushuntiramiz.</p>
-                <a className="btn btn--green" href={site.phoneHref}>
-                  {site.phone}
+                <p className="lead-text">Javob topmadingizmi? Telegram'da yozing — batafsil tushuntiramiz.</p>
+                <a className="btn btn--green" href={site.tg} target="_blank" rel="noreferrer">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1 1.4 11.6c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg>
+                  {site.tgHandle}
                 </a>
               </Reveal>
             </div>
@@ -501,9 +502,9 @@ export default function Page() {
                     <b>{site.hours}</b>
                   </li>
                   <li>
-                    <span>📞 Telefon</span>
+                    <span>✈️ Telegram</span>
                     <b>
-                      <a href={site.phoneHref}>{site.phone}</a> · <a href={site.phone2Href}>{site.phone2}</a>
+                      <a href={site.tg} target="_blank" rel="noreferrer">{site.tgHandle}</a>
                     </b>
                   </li>
                 </ul>
@@ -523,8 +524,8 @@ export default function Page() {
             <Reveal delay={0.1} className="final__form">
               <LeadForm
                 source="Yakuniy forma"
-                title="Ariza qoldiring — eng qulay variantni tanlab beramiz"
-                subtitle="Narxlar, bo'sh qavatlar va to'lov jadvali — bitta qo'ng'iroqda."
+                title="Batafsil ma'lumot uchun — eng qulay variantni tanlab beramiz"
+                subtitle="Narxlar, bo'sh qavatlar va to'lov jadvali — bitta suhbatda."
               />
             </Reveal>
           </div>

@@ -19,7 +19,7 @@ export default function LeadForm({
   initialRooms,
   dark = false,
   title = "Bepul maslahat oling",
-  subtitle = "Ma'lumotlaringizni qoldiring — mutaxassisimiz 15 daqiqa ichida qo'ng'iroq qiladi.",
+  subtitle = "Ma'lumotlaringizni qoldiring — mutaxassisimiz 15 daqiqa ichida siz bilan bog'lanadi.",
 }: {
   source: string;
   initialRooms?: RoomKey;
@@ -80,8 +80,8 @@ export default function LeadForm({
             </div>
             <h3>Rahmat, {name.split(" ")[0]}!</h3>
             <p>Arizangiz qabul qilindi. Mutaxassisimiz tez orada siz bilan bog'lanadi.</p>
-            <a className="btn btn--ghost" href={site.phoneHref}>
-              Hoziroq qo'ng'iroq qilish
+            <a className="btn btn--ghost" href={site.tg} target="_blank" rel="noreferrer">
+              Telegram'da hoziroq yozish
             </a>
           </motion.div>
         ) : (
@@ -145,7 +145,7 @@ export default function LeadForm({
             </AnimatePresence>
 
             <button className="btn btn--gold btn--block btn--shine" disabled={status === "sending"}>
-              {status === "sending" ? "Yuborilmoqda…" : "Ariza qoldirish"}
+              {status === "sending" ? "Yuborilmoqda…" : "Batafsil ma'lumot uchun"}
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>

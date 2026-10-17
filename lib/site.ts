@@ -5,6 +5,9 @@ export const site = {
   by: "by Aksaray",
   phone: "+998 99 247 62 20",
   phoneHref: "tel:+998992476220",
+  // Bog'lanish uchun asosiy kanal — Telegram admin
+  tg: "https://t.me/yangi_denov_admin",
+  tgHandle: "@yangi_denov_admin",
   phone2: "+998 78 113 77 47",
   phone2Href: "tel:+998781137747",
   address: "Denov shahri, X.Murodov ko'chasi, 58-uy («Namozgoh» mahallasi)",
@@ -236,6 +239,6 @@ export const faq = [
   },
   {
     q: "Uyni ko'rish mumkinmi?",
-    a: "Albatta. Sotuv ofisimiz Yangi bozor ro'parasida, har kuni 9:00–19:00. Ariza qoldiring — mutaxassis qulay vaqtni kelishib, sizni qurilish maydoniga olib boradi.",
+    a: "Albatta. Sotuv ofisimiz Yangi bozor ro'parasida, har kuni 9:00–19:00. Telegram'da yozing — mutaxassis qulay vaqtni kelishib, sizni qurilish maydoniga olib boradi.",
   },
 ];
