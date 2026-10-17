@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { crmReady, sendToCrm } from "@/lib/crm";
 import { metaReady, sendMetaEvent } from "@/lib/meta";
+import { saleUrl } from "@/lib/sale-link";
 import { esc, refLink, tg, tgChats, tgToken } from "@/lib/telegram";
 
 export const runtime = "nodejs";
@@ -54,21 +55,31 @@ export async function POST(req: Request) {
     .filter(Boolean)
     .join("\n");
 
+  const origin =
+    process.env.SITE_URL ||
+    `${req.headers.get("x-forwarded-proto") || "https"}://${req.headers.get("x-forwarded-host") || req.headers.get("host")}`;
   const chats = tgChats();
   const tgReady = Boolean(tgToken() && chats.length);
 
   const [tgRes, crmRes, metaRes] = await Promise.allSettled([
     tgReady
       ? Promise.all(
-          chats.map((chat_id) =>
-            tg("sendMessage", {
+          chats.map(async (chat_id) => {
+            const msg = await tg<{ message_id: number }>("sendMessage", {
               chat_id,
               text,
               parse_mode: "HTML",
               link_preview_options: { is_disabled: true },
-              reply_markup: { inline_keyboard: [[{ text: "💰 Sotildi — summani kiritish", callback_data: "sold" }]] },
-            })
-          )
+            });
+            // "Sotildi" tugmasi brauzerda summa kiritish sahifasini ochadi; havolada shu xabar ID si ham bor,
+            // shuning uchun xabar yuborilgandan keyin tugma qo'shiladi.
+            const url = saleUrl(origin, { e: eventId, c: fbc, p: fbp, n: name, ph: digits, r: rooms, ch: chat_id, m: msg.message_id });
+            await tg("editMessageReplyMarkup", {
+              chat_id,
+              message_id: msg.message_id,
+              reply_markup: { inline_keyboard: [[{ text: "💰 Sotildi — summani kiritish", url }]] },
+            }).catch((e) => console.error("[lead] sotuv tugmasi", e));
+          })
         )
       : Promise.resolve(null),
     sendToCrm({ name, phone: `+${digits}`, source: "Sayt", extra: `${rooms} xonali${source ? ` · ${source}` : ""}` }),

@@ -20,11 +20,11 @@ Saytdagi forma → `/api/lead` bir vaqtda:
 3. **Meta** — Pixel (brauzer) va Conversions API (server) `Lead` hodisasi, bir xil `eventID` bilan
 
 ## Sotuvni Meta'ga yuborish
-- **Telegram bot:** lid ostidagi «💰 Sotildi» → bot so'raydi → summani javob qilib yozing (`450000000`, `450mln`, `35000$`). Meta'ga `Purchase` boradi (so'm Markaziy bank kursi bo'yicha USD ga aylantiriladi).
+- **Telegram bot:** lid ostidagi «💰 Sotildi» tugmasi brauzerda `/sotuv` sahifasini ochadi → summa va valyutani kiritasiz → Meta'ga `Purchase` boradi (so'm Markaziy bank kursi bo'yicha USD ga aylantiriladi), Telegram'dagi tugma «✅ Sotildi: …» ga o'zgaradi. Havola imzolangan — uni o'zgartirib bo'lmaydi. Webhook shart emas.
 - **Qo'lda:** `/sotuv 901234567 450mln Ism Familiya`
 - **CRM'dan:** `POST /api/meta/purchase?key=META_PURCHASE_KEY` — `{"phone":"+998901234567","name":"Ism","amount":450000000,"currency":"UZS","id":"crm-lid-id"}`
 
-Botni ulash (deploydan keyin bir marta): `https://SAYT/api/telegram/setup?key=TELEGRAM_WEBHOOK_SECRET` ni brauzerda oching.
+`/sotuv` buyrug'i uchun botni ulash (deploydan keyin bir marta): `https://SAYT/api/telegram/setup?key=TELEGRAM_WEBHOOK_SECRET` ni brauzerda oching.
 
 ## Tuzilma
 - `lib/site.ts` — barcha matnlar, narxlar, telefonlar (tahrir shu yerda)
