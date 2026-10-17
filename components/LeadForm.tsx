@@ -12,6 +12,12 @@ function formatPhone(raw: string) {
   return "+998" + (p.length ? " " + p.join(" ") : " ");
 }
 
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
+}
+
 type Status = "idle" | "sending" | "done" | "error";
 
 export default function LeadForm({
@@ -48,13 +54,16 @@ export default function LeadForm({
     setStatus("sending");
     try {
       const website = (new FormData(e.currentTarget).get("website") as string) || "";
+      // Pixel va server (Conversions API) bir xil eventId yuboradi — Meta ularni bitta lid deb sanaydi.
+      const eventId = crypto.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`;
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, rooms: String(rooms), source, website }),
+        body: JSON.stringify({ name, phone, rooms: String(rooms), source, website, eventId }),
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.ok) throw new Error(json.error || "Xatolik");
+      window.fbq?.("track", "Lead", { content_name: `${rooms} xonali`, content_category: "apartment" }, { eventID: eventId });
       setStatus("done");
     } catch (err) {
       setStatus("error");

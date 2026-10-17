@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Lora } from "next/font/google";
 import "./globals.css";
+import MetaPixel from "@/components/MetaPixel";
 
 const sans = Montserrat({ subsets: ["latin", "cyrillic"], variable: "--font-sans", display: "swap" });
 const serif = Lora({ subsets: ["latin", "cyrillic"], style: ["normal", "italic"], variable: "--font-serif", display: "swap" });
@@ -25,7 +26,10 @@ export const viewport: Viewport = { themeColor: "#04564c", viewportFit: "cover" 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="uz" className={`${sans.variable} ${serif.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <MetaPixel id={process.env.META_PIXEL_ID} />
+      </body>
     </html>
   );
 }
