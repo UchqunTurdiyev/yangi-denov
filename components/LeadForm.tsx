@@ -1,8 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useEffect, useId, useState } from "react";
-import { site, type RoomKey } from "@/lib/site";
+import type { RoomKey } from "@/lib/site";
 
 function formatPhone(raw: string) {
   let d = raw.replace(/\D/g, "");
@@ -18,7 +19,7 @@ declare global {
   }
 }
 
-type Status = "idle" | "sending" | "done" | "error";
+type Status = "idle" | "sending" | "error";
 
 export default function LeadForm({
   source,
@@ -34,6 +35,7 @@ export default function LeadForm({
   subtitle?: string;
 }) {
   const uid = useId();
+  const router = useRouter();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("+998 ");
   const [rooms, setRooms] = useState<RoomKey | null>(initialRooms ?? null);
@@ -64,7 +66,8 @@ export default function LeadForm({
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.ok) throw new Error(json.error || "Xatolik");
       window.fbq?.("track", "Lead", { content_name: `${rooms} xonali`, content_category: "apartment" }, { eventID: eventId });
-      setStatus("done");
+      // Rahmat sahifasi 10 soniyadan so'ng Telegram'dagi adminga yo'naltiradi. Tugma "Yuborilmoqda…" holida qoladi.
+      router.push(`/rahmat?n=${encodeURIComponent(name.trim())}`);
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Xatolik yuz berdi");
@@ -74,26 +77,6 @@ export default function LeadForm({
   return (
     <div className={`lead ${dark ? "lead--dark" : ""}`}>
       <AnimatePresence mode="wait">
-        {status === "done" ? (
-          <motion.div
-            key="ok"
-            className="lead__done"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", stiffness: 220, damping: 18 }}
-          >
-            <div className="lead__check">
-              <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" strokeWidth="3">
-                <motion.path d="M5 12.5l4.5 4.5L19 7.5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, delay: 0.2 }} />
-              </svg>
-            </div>
-            <h3>Rahmat, {name.split(" ")[0]}!</h3>
-            <p>Arizangiz qabul qilindi. Mutaxassisimiz tez orada siz bilan bog'lanadi.</p>
-            <a className="btn btn--ghost" href={site.tg} target="_blank" rel="noreferrer">
-              Telegram'da hoziroq yozish
-            </a>
-          </motion.div>
-        ) : (
           <motion.form key="form" onSubmit={submit} noValidate initial={{ opacity: 1 }} exit={{ opacity: 0, y: -10 }}>
             <h3 className="lead__title">{title}</h3>
             <p className="lead__sub">{subtitle}</p>
@@ -166,7 +149,6 @@ export default function LeadForm({
               Ma'lumotlaringiz uchinchi shaxslarga berilmaydi
             </p>
           </motion.form>
-        )}
       </AnimatePresence>
     </div>
   );

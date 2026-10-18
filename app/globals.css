@@ -523,3 +523,22 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
+
+/* ---------- Rahmat sahifasi ---------- */
+.thanks { position: relative; min-height: 100svh; display: grid; place-items: center; padding: 24px 16px; overflow: hidden;
+  background: radial-gradient(120% 80% at 50% 0%, var(--green-2), var(--green-dark) 60%, var(--green-deep)); }
+.thanks__glow { position: absolute; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 187, 77, 0.35), transparent 65%);
+  top: -160px; right: -160px; animation: float 9s ease-in-out infinite; pointer-events: none; }
+.thanks__card { position: relative; width: min(460px, 100%); background: var(--paper); border-radius: var(--radius); padding: 36px 26px 26px; text-align: center; box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.55); }
+.thanks__title { font-size: clamp(26px, 6vw, 32px); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 10px; }
+.thanks__text { color: var(--muted); font-size: 15px; margin-bottom: 22px; }
+.thanks__timer { position: relative; width: 120px; height: 120px; margin: 0 auto 6px; display: grid; place-items: center; }
+.thanks__timer svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.thanks__track { fill: none; stroke: var(--cream); stroke-width: 8; }
+.thanks__ring { fill: none; stroke: var(--gold-2); stroke-width: 8; stroke-linecap: round; stroke-dashoffset: 0; animation: thanks-ring linear forwards; }
+@keyframes thanks-ring { to { stroke-dashoffset: var(--c); } }
+.thanks__num { position: relative; font-size: 40px; font-weight: 800; color: var(--green); }
+.thanks__hint { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.thanks__back { display: inline-block; margin-top: 14px; font-size: 14px; font-weight: 600; color: var(--muted); }
+.thanks__back:hover { color: var(--green); }
+@media (prefers-reduced-motion: reduce) { .thanks__ring, .thanks__glow { animation: none; } }
