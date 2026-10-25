@@ -1,7 +1,7 @@
 import LeadForm, { LeadModal } from "@/components/LeadForm";
-import { Apartments, Audience, Header, Hero, Logo, MobileBar, Parallax } from "@/components/sections";
-import { Countdown, Counter, LeadButton, Reveal, Tilt } from "@/components/ui";
-import { builder, inside, nearby, payment, perks, perksTicker, site } from "@/lib/site";
+import { Apartments, Header, Hero, Logo, MobileBar } from "@/components/sections";
+import { Counter, Reveal, Tilt } from "@/components/ui";
+import { builder, perks, perksTicker, site } from "@/lib/site";
 
 const ICONS: Record<string, React.ReactNode> = {
   lift: <path d="M6 3h12v18H6zM12 3v18M9 9l1.5-2L12 9M15 15l-1.5 2L12 15" />,
@@ -32,62 +32,6 @@ export default function Page() {
           </div>
         </div>
 
-        {/* Loyiha haqida */}
-        <section className="section" id="loyiha">
-          <div className="container split">
-            <div>
-              <Reveal>
-                <span className="eyebrow">Loyiha haqida</span>
-              </Reveal>
-              <Reveal delay={0.05}>
-                <h2 className="h2">
-                  Denovning yuragida <em>yangi hayot</em> boshlanmoqda
-                </h2>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <p className="lead-text">
-                  Yangi Denov — Surxondaryo viloyatining eng yirik turar joy majmuasi. 21 gektar maydonda 6 800 dan ortiq
-                  xonadon, o'z maktabi, bog'chasi, klinikasi, sport maydonlari va yashil xiyobonlari bo'lgan to'laqonli
-                  shaharcha 2025–2030 yillarda bosqichma-bosqich qad rostlaydi.
-                </p>
-              </Reveal>
-              <Reveal delay={0.15}>
-                <p className="lead-text">
-                  Biz shunchaki uy qurmayapmiz. Biz Denovga yangi turmush tarzini olib kelyapmiz — bolangiz maktabga piyoda
-                  boradigan, ota-onangiz masjidga 2 daqiqada yetadigan, siz esa bozor, ish va shifoxonani bir qadamda
-                  topadigan hayotni.
-                </p>
-              </Reveal>
-              <Reveal delay={0.2}>
-                <ul className="inside">
-                  {inside.map((x) => (
-                    <li key={x}>
-                      <i aria-hidden>✓</i>
-                      {x}
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            </div>
-            <Reveal delay={0.1} className="stack-img">
-              <Tilt className="stack-img__main" max={6}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/media/gallery/aerial.jpg" alt="Yangi Denov — qushparvoz ko'rinish" loading="lazy" />
-              </Tilt>
-              <div className="stack-img__sub">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/media/gallery/facade.jpg" alt="Yangi Denov uylari fasadi" loading="lazy" />
-              </div>
-              <div className="stack-img__chip">
-                <b>
-                  <Counter value={6800} suffix="+" />
-                </b>
-                <span>xonadon</span>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
         {/* Xonadonlar 3D */}
         <section className="section section--cream" id="xonadonlar">
           <div className="container">
@@ -109,38 +53,6 @@ export default function Page() {
             <Reveal delay={0.1}>
               <Apartments />
             </Reveal>
-          </div>
-        </section>
-
-        {/* Joylashuv afzalliklari */}
-        <section className="section section--dark" id="joylashuv">
-          <div className="container">
-            <div className="section__head section__head--light">
-              <Reveal>
-                <span className="eyebrow eyebrow--light">Joylashuv</span>
-              </Reveal>
-              <Reveal delay={0.05}>
-                <h2 className="h2">
-                  Hammasi — <em>5 daqiqalik</em> piyoda masofada
-                </h2>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <p className="lead-text">
-                  Mashina shart emas. Bozor, masjid, universitet, Prezident maktabi va davlat idoralari — barchasi
-                  uyingizdan bir necha qadamda.
-                </p>
-              </Reveal>
-            </div>
-            <div className="near">
-              {nearby.map((n, i) => (
-                <Reveal key={n.name} delay={i * 0.05} className="near__item">
-                  <span className="near__icon">{n.icon}</span>
-                  <span className="near__name">{n.name}</span>
-                  <span className="near__time">{n.time}</span>
-                  <span className="near__bar" style={{ ["--w" as string]: `${30 + i * 8}%` }} />
-                </Reveal>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -170,111 +82,6 @@ export default function Page() {
                 </Reveal>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Genplan */}
-        <section className="genplan">
-          <Parallax src="/media/genplan.jpg" alt="Yangi Denov bosh rejasi" className="genplan__img" />
-          <div className="genplan__overlay">
-            <div className="container">
-              <Reveal>
-                <p className="genplan__quote">
-                  «Surxondaryoning yuragi Denov bo'lsa, shu shaharning yuragi — <em>Yangi Denov</em>»
-                </p>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
-        {/* To'lov */}
-        <section className="section section--cream" id="tolov">
-          <div className="container">
-            <div className="section__head">
-              <Reveal>
-                <span className="eyebrow">To'lov shartlari</span>
-              </Reveal>
-              <Reveal delay={0.05}>
-                <h2 className="h2">
-                  Uy olish hech qachon <em>bunchalik oson</em> bo'lmagan
-                </h2>
-              </Reveal>
-            </div>
-            <div className="pay">
-              <Reveal className="pay__card pay__card--main">
-                <span className="tag tag--gold">Oktabr aksiyasi</span>
-                <p>Boshlang'ich to'lov</p>
-                <b className="big-num">
-                  <Counter value={29000000} />
-                </b>
-                <em>so'm</em>
-                <div className="pay__pills">
-                  <span>Istalgan qavat</span>
-                  <span>60 oygacha to'lov</span>
-                </div>
-                <LeadButton source="Oktabr aksiyasi" className="btn btn--gold btn--block btn--shine">
-                  Aksiyadan foydalanish
-                </LeadButton>
-              </Reveal>
-
-              <Reveal delay={0.1} className="pay__card pay__card--teacher">
-                <span className="tag tag--green">Ta'lim xodimlari uchun</span>
-                <h3>Qadrli ustoz, bu taklif — siz uchun</h3>
-                <ul className="offer">
-                  <li>
-                    Istalgan qavatdan <b>boshlang'ich to'lovsiz</b>
-                  </li>
-                  <li>
-                    1 xonali — oyiga <b>2,5 mln</b> · 2 xonali — <b>3,5 mln</b> · 3 xonali — <b>4,5 mln</b>
-                  </li>
-                  <li>
-                    30 mln boshlang'ich to'lovga — <b>10 mln chegirma</b>
-                  </li>
-                  <li>
-                    50 mln — <b>20 mln</b>, 70 mln — <b>30 mln chegirma</b>
-                  </li>
-                </ul>
-                <p className="muted small">Maktab kesimida cheklangan «imtiyoz qog'ozi» bilan amal qiladi. Tugashiga:</p>
-                <Countdown until="2026-11-05T23:59:00+05:00" />
-              </Reveal>
-
-              <Reveal delay={0.2} className="pay__card pay__card--list">
-                <h3>Hamma uchun</h3>
-                <ul className="checks">
-                  {payment.map((p) => (
-                    <li key={p}>
-                      <i aria-hidden>✓</i>
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-                <p className="muted small">
-                  Kadastri tayyor bo'sh xonadon bo'lsa — shartnomani almashtirib, oldinroq ko'chib o'tish mumkin.
-                </p>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
-        {/* Kimlar uchun */}
-        <section className="section" id="kimlar">
-          <div className="container">
-            <div className="section__head">
-              <Reveal>
-                <span className="eyebrow">Siz uchun</span>
-              </Reveal>
-              <Reveal delay={0.05}>
-                <h2 className="h2">
-                  Har bir orzu ortida <em>bitta sabab</em> bor
-                </h2>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <p className="lead-text">O'zingizni toping — Yangi Denov aynan sizning muammongizga yechim tayyorlagan.</p>
-              </Reveal>
-            </div>
-            <Reveal delay={0.1}>
-              <Audience />
-            </Reveal>
           </div>
         </section>
 

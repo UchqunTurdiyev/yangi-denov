@@ -1,9 +1,9 @@
 "use client";
 
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useInView, useScroll, useTransform } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-import { apartments, audiences, heroStats, nav, site, type RoomKey } from "@/lib/site";
+import { apartments, heroStats, nav, site, type RoomKey } from "@/lib/site";
 import LeadForm from "./LeadForm";
 import { Counter, LeadButton, Magnetic, Tilt } from "./ui";
 
@@ -100,7 +100,13 @@ export function Hero() {
     <section className="hero" id="top" ref={ref}>
       <motion.div className="hero__bg" style={{ y: imgY, scale: imgScale }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/media/genplan.jpg" alt="Yangi Denov majmuasi — umumiy ko'rinish" />
+        <img
+          src="/media/genplan.webp"
+          srcSet="/media/genplan-m.webp 1080w, /media/genplan.webp 1920w"
+          sizes="100vw"
+          alt="Yangi Denov majmuasi — umumiy ko'rinish"
+          fetchPriority="high"
+        />
       </motion.div>
       <div className="hero__shade" />
       <div className="hero__leaf" aria-hidden />
@@ -187,7 +193,7 @@ export function Hero() {
         ))}
       </div>
 
-      <a href="#loyiha" className="scroll-cue" aria-label="Pastga">
+      <a href="#xonadonlar" className="scroll-cue" aria-label="Pastga">
         <span />
       </a>
     </section>
@@ -198,6 +204,9 @@ export function Apartments() {
   const [rooms, setRooms] = useState<RoomKey>(2);
   const [view, setView] = useState<"3d" | "render">("3d");
   const a = apartments[rooms];
+  // three.js og'ir — faqat bo'lim ekranga yaqinlashganda yuklanadi
+  const stageRef = useRef<HTMLDivElement>(null);
+  const near = useInView(stageRef, { once: true, margin: "600px 0px" });
 
   return (
     <div className="apt">
@@ -211,7 +220,7 @@ export function Apartments() {
       </div>
 
       <div className="apt__grid">
-        <div className="apt__stage">
+        <div className="apt__stage" ref={stageRef}>
           <div className="apt__switch">
             <button className={view === "3d" ? "is-active" : ""} onClick={() => setView("3d")}>
               3D maket
@@ -222,7 +231,7 @@ export function Apartments() {
           </div>
           <div className="apt__canvas">
             <div className={`apt__layer ${view === "3d" ? "is-on" : ""}`}>
-              <Apartment3D rooms={rooms} />
+              {near ? <Apartment3D rooms={rooms} /> : <div className="viewer3d viewer3d--skeleton">3D maket yuklanmoqda…</div>}
             </div>
             <div className={`apt__layer ${view === "render" ? "is-on" : ""}`}>
               <AnimatePresence mode="wait">
@@ -297,49 +306,6 @@ export function Apartments() {
   );
 }
 
-export function Audience() {
-  const [i, setI] = useState(0);
-  const a = audiences[i];
-  return (
-    <div className="aud">
-      <div className="aud__list">
-        {audiences.map((x, k) => (
-          <button key={x.key} className={`aud__btn ${k === i ? "is-active" : ""}`} onClick={() => setI(k)}>
-            {k === i && <motion.span layoutId="aud-bg" className="aud__btn-bg" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
-            <span>{x.name}</span>
-          </button>
-        ))}
-      </div>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={a.key}
-          className="aud__card"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.45, ease }}
-        >
-          <div className="aud__pain">
-            <span className="tag tag--red">Muammo</span>
-            <p>{a.pain}</p>
-          </div>
-          <div className="aud__sol">
-            <span className="tag tag--green">Yangi Denov yechimi</span>
-            <ul>
-              {a.solutions.map((s, k) => (
-                <motion.li key={s} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 + k * 0.08 }}>
-                  <i aria-hidden>✓</i>
-                  {s}
-                </motion.li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  );
-}
-
 export function MobileBar() {
   const [show, setShow] = useState(false);
   useEffect(() => {
@@ -362,17 +328,5 @@ export function MobileBar() {
         </motion.div>
       )}
     </AnimatePresence>
-  );
-}
-
-export function Parallax({ src, alt, className }: { src: string; alt: string; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
-  return (
-    <div ref={ref} className={`parallax ${className || ""}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <motion.img src={src} alt={alt} style={{ y, scale: 1.2 }} loading="lazy" />
-    </div>
   );
 }
